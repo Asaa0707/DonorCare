@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Pendonor - Donor Darah</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container container-data">
+
+        <header>
+            <h1>Data Pendonor Darah</h1>
+            <p>Berikut adalah daftar peserta yang telah mendaftar donor darah</p>
+        </header>
+
+        <div class="tabel-container">
+
+            <div class="judul-tabel">
+                <h2>Daftar Data Pendonor</h2>
+                <span id="jumlahData">0 Pendonor</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="tabel-donor">
+
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Lengkap</th>
+                            <th>Email</th>
+                            <th>Umur</th>
+                            <th>Golongan Darah</th>
+                            <th>Nomor HP</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelData"></tbody>
+
+                </table>
+            </div>
+
+            <p id="dataKosong" class="data-kosong" style="display: none;">
+                Belum ada data pendonor yang terdaftar.
+            </p>
+
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn-kembali" onclick="tambahData()">
+                Tambah Pendonor
+            </button>
+        </div>
+
+        <footer class="footer-copyright">
+            &copy; 2026 Pendaftaran Donor Darah. All rights reserved.
+        </footer>
+
+    </div>
+
+    <script>
+        // MENGAMBIL DATA DARI LOCAL STORAGE
+        let dataPendonor = JSON.parse(localStorage.getItem("dataDonor")) || [];
+
+        // MENGUBAH DATA LAMA MENJADI ARRAY
+        if (!Array.isArray(dataPendonor)) {
+            dataPendonor = [dataPendonor];
+        }
+
+        // MEMBERIKAN ID PADA DATA YANG BELUM MEMILIKI ID
+        dataPendonor.forEach(item => {
+            if (!item.id) {
+                item.id = Date.now() + Math.random();
+            }
+        });
+
+        localStorage.setItem(
+            "dataDonor",
+            JSON.stringify(dataPendonor)
+        );
+
+        const tabelData = document.getElementById("tabelData");
+        const dataKosong = document.getElementById("dataKosong");
+        const jumlahData = document.getElementById("jumlahData");
+
+
+        // READ: MENAMPILKAN DATA PENDONOR
+        function tampilkanData() {
+            tabelData.innerHTML = "";
+            jumlahData.textContent = dataPendonor.length + " Pendonor";
+            if (dataPendonor.length === 0) {
+                dataKosong.style.display = "block";
+                return;
+            }
+
+            dataKosong.style.display = "none";
+            dataPendonor.forEach((data, index) => {
+                const baris = document.createElement("tr");
+                const kolom = [
+                    index + 1,
+                    data.nama,
+                    data.email,
+                    data.umur + " tahun",
+                    data.golongan,
+                    data.telepon
+                ];
+
+                kolom.forEach(nilai => {
+                    const td = document.createElement("td");
+                    td.textContent = nilai;
+                    baris.appendChild(td);
+
+                });
+
+
+                // MEMBUAT TOMBOL AKSI
+                const aksi = document.createElement("td");
+                aksi.className = "aksi-data";
+
+
+                // TOMBOL VIEW
+                const tombolView = document.createElement("button");
+                tombolView.textContent = "View";
+                tombolView.className = "btn-view";
+                tombolView.onclick = function () {
+                    lihatData(data.id);
+                };
+
+
+                // TOMBOL EDIT
+                const tombolEdit = document.createElement("button");
+                tombolEdit.textContent = "Edit";
+                tombolEdit.className = "btn-edit";
+                tombolEdit.onclick = function () {
+                    editData(data.id);
+                };
+
+
+                // TOMBOL DELETE
+                const tombolDelete = document.createElement("button");
+                tombolDelete.textContent = "Delete";
+                tombolDelete.className = "btn-delete";
+                tombolDelete.onclick = function () {
+                    hapusData(data.id);
+                };
+
+
+                aksi.append(
+                    tombolView,
+                    tombolEdit,
+                    tombolDelete
+                );
+
+                baris.appendChild(aksi);
+                tabelData.appendChild(baris);
+            });
+
+        }
+
+
+        // VIEW: MELIHAT DETAIL DATA
+        function lihatData(id) {
+            window.location.href = "output.html?id=" + id;
+        }
+
+
+        // UPDATE: MENGUBAH DATA
+        function editData(id) {
+            window.location.href = "index.html?edit=" + id;
+        }
+
+
+        // DELETE: MENGHAPUS DATA
+        function hapusData(id) {
+            const konfirmasi = confirm(
+                "Apakah kamu yakin ingin menghapus data pendonor ini?"
+            );
+
+            if (konfirmasi) {
+                dataPendonor = dataPendonor.filter(
+                    item => item.id != id
+                );
+
+                localStorage.setItem(
+                    "dataDonor",
+                    JSON.stringify(dataPendonor)
+                );
+
+                tampilkanData();
+                alert("Data pendonor berhasil dihapus!");
+            }
+        }
+        function tambahData() {
+            window.location.href = "index.html";
+        }
+        tampilkanData();
+    </script>
+</body>
+</html>

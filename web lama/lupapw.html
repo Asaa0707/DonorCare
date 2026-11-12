@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lupa Password</title>
+    <link rel="stylesheet" href="styleformlogin.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="login-box">
+      <div class="header">
+        <h1>Buat Password Baru</h1>
+      </div>
+      <div class="form">
+        <form action="loginform.html" method="get" onsubmit="return verifikasiPassword();">
+          <h4>Masukkan Password Baru Anda</h4>
+          <input type="password" id="inputPw" placeholder="Masukkan Password Baru" required/>
+          <h4>Silahkan Verifikasi Password Anda</h4>
+          <input type="password" id="verifikasiPw" placeholder="Verifikasi Password Baru"required/>
+          <small id="pesanError"></small>
+          <button type="submit">Ubah Password</button>
+          <div class="remember">
+            <p>
+              <strong>Ingat sandi? </strong>
+              <a href="formlogin.html">Kembali ke login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function verifikasiPassword() {
+        let password = document.getElementById("inputPw").value;
+        let konfirmasi = document.getElementById("verifikasiPw").value;
+        let pesanError = document.getElementById("pesanError");
+
+        if (password == konfirmasi) {
+          pesanError.textContent = "";
+          return true;
+        } else {
+          pesanError.textContent = "Password harus sama!";
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

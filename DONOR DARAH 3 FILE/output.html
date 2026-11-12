@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Pendaftaran Donor Darah</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Data Pendaftaran Donor Darah</h1>
+            <p>Terima kasih telah bersedia menjadi pendonor darah</p>
+        </header>
+
+        <div class="success">
+            <img src="makasi.jpg" alt="Gambar Terima Kasih" />
+
+            <h2>Data Anda Sudah Dikirim</h2>
+
+            <p class="pesan-kecil">
+                Berikut adalah data pendaftaran donor darah yang telah Anda masukkan.
+            </p>
+
+            <div class="data-tersimpan">
+                <div class="data-item">
+                    <span>Nama Lengkap</span>
+                    <strong id="outputNama"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Email</span>
+                    <strong id="outputEmail"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Password</span>
+                    <strong id="outputPassword"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Umur</span>
+                    <strong id="outputUmur"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Jenis Kelamin</span>
+                    <strong id="outputJenisKelamin"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Golongan Darah</span>
+                    <strong id="outputGolongan"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Nomor HP</span>
+                    <strong id="outputTelepon"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Alamat Lengkap</span>
+                    <strong id="outputAlamat"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Jadwal Donor</span>
+                    <strong id="outputJadwal"></strong>
+                </div>
+
+                <div class="data-item">
+                    <span>Persetujuan</span>
+                    <strong id="outputPersetujuan"></strong>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-kembali" onclick="kembaliKeForm()">
+                    Kembali ke Form
+                </button>
+
+                <button type="button" class="btn-kembali" onclick="lihatSemuaData()">
+                    Lihat Data Pendonor
+                </button>
+            </div>
+        </div>
+
+        <footer class="footer-copyright">
+            &copy; 2026 Pendaftaran Donor Darah. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        let dataPendonor = JSON.parse(localStorage.getItem("dataDonor")) || [];
+
+        if (!Array.isArray(dataPendonor)) {
+            dataPendonor = [dataPendonor];
+        }
+
+        const data = dataPendonor.find(item => item.id == id);
+
+        if (data) {
+            document.getElementById("outputNama").textContent = data.nama;
+            document.getElementById("outputEmail").textContent = data.email;
+            document.getElementById("outputPassword").textContent = data.password;
+            document.getElementById("outputUmur").textContent = data.umur + " tahun";
+            document.getElementById("outputJenisKelamin").textContent = data.jenisKelamin;
+            document.getElementById("outputGolongan").textContent = data.golongan;
+            document.getElementById("outputTelepon").textContent = data.telepon;
+            document.getElementById("outputAlamat").textContent = data.alamat;
+            document.getElementById("outputJadwal").textContent = data.jadwal;
+            document.getElementById("outputPersetujuan").textContent = data.persetujuan;
+        } else {
+            document.querySelector(".success").innerHTML = `
+                <h2>Data Tidak Ditemukan</h2>
+                <p class="pesan-kecil">
+                    Silakan kembali ke halaman form dan isi data terlebih dahulu.
+                </p>
+                <button type="button" class="btn-kembali" onclick="kembaliKeForm()">
+                    Kembali ke Form
+                </button>
+                <button type="button" class="btn-kembali" onclick="lihatSemuaData()">
+                    Lihat Data Pendonor
+                </button>
+            `;
+        }
+
+        function kembaliKeForm() {
+            window.location.href = "index.html";
+        }
+
+        function lihatSemuaData() {
+            window.location.href = "data.html";
+        }
+    </script>
+</body>
+</html>

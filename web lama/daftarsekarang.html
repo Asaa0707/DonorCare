@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>daftar</title>
+    <link rel="stylesheet" href="styleformlogin.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+    rel="stylesheet"
+    />
+</head>
+<body>
+    
+    <div class="login-box">
+    <div class="header">
+        <h1>Buat Akun Dulu</h1>
+    </div>
+    <div class="form">
+        <form action="../DONOR DARAH 3 FILE/index.html" method="get" onsubmit="return verifikasiPassword();">
+            <h4>Masukkan Akun Gmail Anda</h4>
+            <input type="email" placeholder="Masukkan Gmail" required />
+            <h4>Masukkan Username Anda</h4>
+            <input type="text" placeholder="Masukkan Username" required />
+            <h4>Masukkan Username Anda</h4>
+            <input type="password" id="password" placeholder="Buat Password" required/>
+            <h4>Konfirmasi Password Anda</h4>
+            <input type="password" id="konfirmasi" placeholder="Verifikasi Password" required/>
+        <small id="pesanError"></small>
+        <button type="submit">Buat Akun</button>
+        <p>
+            Sudah punya akun?
+            <a href="formlogin.html">Login Sekarang</a>
+        </p>
+        </form>
+    </div>
+    </div>
+    <script>
+    function verifikasiPassword() {
+        let password = document.getElementById("password").value;
+        let konfirmasi = document.getElementById("konfirmasi").value;
+        let pesanError = document.getElementById("pesanError");
+        if (password == konfirmasi) {
+        pesanError.textContent = "";
+        return true;
+        } else {
+        pesanError.textContent = "Password harus sama!";
+        return false;
+        }
+    }
+    </script>
+</body>
+</html>

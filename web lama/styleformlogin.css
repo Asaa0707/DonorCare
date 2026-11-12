@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Outfit", "Poppins";
+  background-color: #fff0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  width: 450px;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  background: linear-gradient(#800020);
+  padding: 35px;
+  text-align: center;
+}
+
+.header h1 {
+  color: white;
+  font-size: 32px;
+}
+
+.form {
+  padding: 35px;
+}
+
+.form input[type="email"],
+.form input[type="text"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #f0b8b8;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+}
+
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
+  border-color: #800020;
+}
+
+.remember {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.remember label {
+  color: #555;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(#800020);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #800020;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(100, 0, 0, 0.2);
+}
+
+.form p {
+  text-align: center;
+  margin-top: 15px;
+  color: #444;
+  font-size: 16px;
+}
+
+.form p a {
+  font-weight: bold;
+}
+
+#pesanError {
+  display: block;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  color: #b00000;
+  font-size: 14px;
+}
